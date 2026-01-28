@@ -17,11 +17,6 @@ function renderLanding() {
     sendAnalyticsEvent('7111_page_view_kk_var4', '7111_page_view_kk_var4');
     sessionStorage.setItem('landingViewed', '1');
   }
-  // Если уже была заглушка, не показываем лендинг
-  if (localStorage.getItem('placeholderShown') === '1') {
-    renderPlaceholder();
-    return;
-  }
   app.innerHTML = `
     <div class="landing">
       <img src="img/image_33.png" alt="Кредитная карта" class="credit-card-image" />
@@ -61,25 +56,6 @@ function renderLanding() {
   document.getElementById('sendBtn').onclick = () => {
     window.location.href = 'alfabank://sdui_screen?screenName=InvestmentLongread&fromCurrent=true&shouldUseBottomSafeArea=true&endpoint=v1/invest-main-screen-view/investment-longread/93819%3flocation=AM%26campaignCode=GH';
   };
-}
-
-function renderPlaceholder() {
-  // Отправляем событие просмотра финальной страницы только один раз за сессию
-  if (!sessionStorage.getItem('endPageViewed')) {
-    sendAnalyticsEvent('7111_end_page_view_kk_var4', '7111_end_page_view_kk_var4');
-    sessionStorage.setItem('endPageViewed', '1');
-  }
-  app.innerHTML = `
-    <div class="placeholder">
-      <img src="img/moai.png" alt="Moai" class="placeholder__img" />
-      <div class="placeholder__title">Только тссс</div>
-      <div class="placeholder__desc">
-        Вы поучаствовали в очень важном исследовании, которое поможет улучшить продукт. Вы – наш герой!
-      </div>
-    </div>
-  `;
-  // Очищаем историю, чтобы нельзя было вернуться назад
-  history.replaceState(null, '', location.href);
 }
 
 renderLanding(); 
